@@ -1,0 +1,13 @@
+{
+  "name": "Birdsong Amulet",
+  "version": "2026.10.27-7294b1a",
+  "new_install_improv_wait_time": 0,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "amulet-merged-2026.10.27-7294b1a.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

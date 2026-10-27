@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.16)
+
+if(NOT DEFINED IDF_TARGET)
+    set(IDF_TARGET "esp32c3")
+endif()
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+if(NOT IDF_TARGET STREQUAL "esp32c3")
+    idf_build_set_property(DEPENDENCIES_LOCK "${CMAKE_BINARY_DIR}/dependencies.lock")
+endif()
+idf_build_set_property(MINIMAL_BUILD ON)
+project(amulet)

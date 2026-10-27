@@ -1,0 +1,170 @@
+menu "Amulet hardware"
+
+config AMULET_LED_GPIO
+    int "RGB LED data GPIO"
+    range 0 48
+    default 8
+    help
+        GPIO connected to the WS2812-compatible RGB LED data input. The current
+        DevKit prototype uses GPIO8. The XIAO carrier profile uses GPIO10 to
+        avoid loading an ESP32-C3 boot-strapping pin. FireBeetle 2 ESP32-E uses
+        its onboard WS2812 on GPIO5.
+
+config AMULET_LED_POWER_GPIO
+    int "RGB LED power-enable GPIO (-1 if always powered)"
+    range -1 48
+    default -1
+    help
+        Optional active-high GPIO that powers the RGB LED. Use -1 when the LED
+        is always powered. The Adafruit ESP32 Feather V2 uses GPIO2.
+
+config AMULET_BUZZER_GPIO
+    int "Buzzer PWM GPIO"
+    range 0 48
+    default 4
+    help
+        GPIO driving the external buzzer transistor through its base resistor.
+        FireBeetle 2 ESP32-E uses exposed D2/GPIO25.
+
+config AMULET_BUTTON_GPIO
+    int "Active-low button GPIO"
+    range 0 48
+    default 3
+    help
+        GPIO connected to the active-low call button. The Adafruit ESP32
+        Feather V2's built-in user button is on input-only GPIO38. FireBeetle 2
+        ESP32-E's built-in user button is on GPIO27.
+
+config AMULET_BUTTON_INTERNAL_PULLUP
+    bool "Enable the button GPIO's internal pull-up"
+    default y
+    help
+        Disable this when the board supplies an external pull-up. ESP32 input-
+        only GPIOs 34 through 39 do not provide internal pull resistors.
+
+config AMULET_EXTERNAL_BUTTON_GPIO
+    int "Optional external active-low button GPIO (-1 if unused)"
+    range -1 48
+    default -1
+    help
+        Optional second GPIO for an enclosure-mounted call button. Both buttons
+        trigger the same debounced action. Use -1 when no external button is
+        installed. FireBeetle 2 ESP32-E exposes D3/GPIO26 for this purpose;
+        D4/GPIO27 is connected to its onboard button but is not header-exposed.
+
+config AMULET_EXTERNAL_BUTTON_INTERNAL_PULLUP
+    bool "Enable the external button GPIO's internal pull-up"
+    default y
+    help
+        Enable this when the external active-low button connects directly from
+        its GPIO to GND without a board-supplied pull-up. This setting has no
+        effect when the external button GPIO is -1.
+
+config AMULET_PROVISIONAL_SIGNATURES
+    bool "Indicate provisional tracker and smart-glasses signatures on the LED"
+    default y
+    help
+        Double-blinks the LED dimly when a tracker-compatible frame away from
+        its owner is nearby, in a color per tracker species (green Find My,
+        cyan SmartTag, yellow Find Hub or DULT, orange Tile), or violet for a
+        device from a smart-glasses maker. Surveillance gear triple-blinks:
+        white for a drone Remote ID broadcast, blue for a public address from
+        a police-equipment maker (Axon). A signal must be seen three times
+        within 15 seconds, and each kind blinks at most once a minute. No sound is played. The signatures come from published detectors
+        and are not yet confirmed with captures; see tracker-signatures.org.
+
+config AMULET_IDLE_BREATHE
+    bool "Breathe the LED slowly while idle"
+    default y
+    help
+        Fades the LED in and out continuously, like a laptop sleep light,
+        whenever nothing else is showing. Alerts, broadcasts and signal blinks
+        all take priority. Adds roughly a third of the peak LED current on
+        average, a little more with a brightness floor; see the battery notes
+        in led-brightness-options.org.
+
+config AMULET_IDLE_BREATHE_PERIOD_MS
+    int "Breathing period in milliseconds"
+    depends on AMULET_IDLE_BREATHE
+    range 1000 20000
+    default 5000
+    help
+        Duration of one full fade in and out. Laptop sleep lights are around
+        4000 to 5000 ms.
+
+config AMULET_IDLE_BREATHE_FLOOR_PERCENT
+    int "Breathing minimum brightness, percent of peak"
+    depends on AMULET_IDLE_BREATHE
+    range 0 100
+    default 15
+    help
+        Keeps the LED from fading fully dark. The Power switch holds the chip
+        in reset without cutting the LED's supply, so the LED freezes at its
+        last color; a floor makes a switched-off amulet always show a still
+        glow rather than looking dead. Any channel with a non-zero peak stays
+        at least 1 when this is above 0. Use 0 to fade to black.
+
+config AMULET_HUNT_NEAR_RSSI_DBM
+    int "Scavenger hunt: signal strength that counts as found (dBm)"
+    range -100 -30
+    default -65
+    help
+        An Amulet celebrates a hunt beacon with a silent rainbow once the
+        median of its last three sightings reaches this strength. Higher
+        (closer to 0) means you must stand closer. Tune at the venue together
+        with the beacons' transmit power.
+
+config AMULET_HUNT_REARM_MINUTES
+    int "Scavenger hunt: minutes away before a beacon celebrates again"
+    range 1 60
+    default 5
+    help
+        After celebrating a beacon, an Amulet stays quiet about it until it
+        has not been near that beacon for this long. Staying put never loops
+        the rainbow; coming back later earns another one.
+
+config AMULET_HUNT_BEACON_NUMBER
+    int "Scavenger hunt beacon number (0 for a normal Amulet)"
+    range 0 8
+    default 0
+    help
+        Builds a silent scavenger-hunt beacon instead of an Amulet. The board
+        advertises its number continuously, glows a slow rainbow, and never
+        scans, calls, responds or sounds. Use 0 for every wearable Amulet.
+
+choice AMULET_HUNT_BEACON_TX_POWER
+    prompt "Scavenger hunt beacon transmit power"
+    depends on AMULET_HUNT_BEACON_NUMBER != 0
+    default AMULET_HUNT_BEACON_TX_POWER_MEDIUM
+    help
+        Lower power shrinks the area where Amulets hear the beacon at all.
+        At low power the found threshold may never be reached, so lower the
+        threshold on the Amulets too.
+
+config AMULET_HUNT_BEACON_TX_POWER_LOW
+    bool "Low (-12 dBm)"
+config AMULET_HUNT_BEACON_TX_POWER_MEDIUM
+    bool "Medium (0 dBm)"
+config AMULET_HUNT_BEACON_TX_POWER_HIGH
+    bool "High (+9 dBm)"
+endchoice
+
+config AMULET_IDLE_BREATHE_RED
+    int "Breathing peak red (0-255)"
+    depends on AMULET_IDLE_BREATHE
+    range 0 255
+    default 0
+
+config AMULET_IDLE_BREATHE_GREEN
+    int "Breathing peak green (0-255)"
+    depends on AMULET_IDLE_BREATHE
+    range 0 255
+    default 0
+
+config AMULET_IDLE_BREATHE_BLUE
+    int "Breathing peak blue (0-255)"
+    depends on AMULET_IDLE_BREATHE
+    range 0 255
+    default 16
+
+endmenu

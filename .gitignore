@@ -1,0 +1,9 @@
+# Project-local ESP-IDF SDK, tools, and Python environment
+.tools/
+.idf-tools/
+.venv/
+managed_components/
+
+# ESP-IDF build output
+build/
+sdkconfig.old

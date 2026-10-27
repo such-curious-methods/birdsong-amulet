@@ -1,0 +1,127 @@
+/* Shared by flash.html and flash-help.html, on top of styles.css. */
+
+.flash-page .masthead,
+.flash-page main,
+.flash-page footer {
+  width: min(980px, calc(100% - 40px));
+}
+
+.flash-page main {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.flash-page h1 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+}
+
+.flash-panel {
+  padding: 34px;
+  border: 1px solid var(--line);
+  border-top: 6px solid var(--orange);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+.flash-panel.fresh {
+  border-top-color: var(--ink);
+}
+
+.flash-panel h2 {
+  margin-bottom: 16px;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+}
+
+.flash-panel p,
+.flash-panel li {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.flash-panel ol,
+.flash-panel ul {
+  padding-left: 1.3em;
+}
+
+.flash-panel strong {
+  color: var(--ink);
+}
+
+.flash-action {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+  margin-top: 22px;
+}
+
+.flash-warning {
+  color: var(--bad);
+}
+
+.firmware-version {
+  color: var(--dim);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+esp-web-install-button {
+  --esp-tools-button-color: #f58538;
+  --esp-tools-button-text-color: #181818;
+}
+
+.install-note {
+  color: var(--bad);
+}
+
+/* Help page */
+.gotcha {
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+
+.gotcha:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.gotcha h3 {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: 1.3rem;
+}
+
+.gotcha dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 8px 16px;
+  margin: 0;
+}
+
+.gotcha dt {
+  color: var(--orange-text);
+  font-size: 0.74rem;
+  font-weight: var(--semibold);
+  letter-spacing: 0.12em;
+  line-height: 1.9;
+  text-transform: uppercase;
+}
+
+.gotcha dd {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.gotcha code {
+  color: var(--ink);
+}
+
+@media (max-width: 650px) {
+  .flash-panel {
+    padding: 24px 16px;
+  }
+
+  .gotcha dl {
+    grid-template-columns: 1fr;
+  }
+}

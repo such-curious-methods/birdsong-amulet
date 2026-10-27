@@ -1,0 +1,21 @@
+idf_component_register(
+    SRCS
+        "amulet_main.c"
+        "amulet_ambient_observer.c"
+        "amulet_ambient_runtime.c"
+        "amulet_ble_classifier.c"
+        "amulet_config.c"
+        "amulet_hunt.c"
+        "amulet_serial.c"
+        "amulet_signal_gate.c"
+    INCLUDE_DIRS "."
+    PRIV_REQUIRES
+        bt
+        esp_driver_gpio
+        esp_driver_ledc
+        esp_hw_support
+        esp_timer
+        led_strip
+        mbedtls
+        nvs_flash
+)

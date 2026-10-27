@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ddd3d2">
+  <title>Amulet Firmware</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="flash.css">
+  <script type="module" src="vendor/esp-web-tools-10.4.0/install-button.js"></script>
+  <script type="module" src="flash.js"></script>
+</head>
+<body class="flash-page">
+
+  <header class="masthead">
+    <p class="eyebrow">Amulet workshop instrument</p>
+    <h1>Install or update the firmware.</h1>
+    <p class="lede">
+      Put the latest Amulet software on your badge straight from this page. No
+      programming tools needed.
+    </p>
+    <p class="firmware-version" id="firmwareVersion" aria-live="polite">Checking the packaged firmware...</p>
+  </header>
+
+  <main>
+    <section class="flash-panel" aria-labelledby="before-title">
+      <p class="section-kicker">01 / Before you start</p>
+      <h2 id="before-title">A minute of setup</h2>
+      <ul>
+        <li>Use <strong>Chrome or Edge on a computer</strong>. Safari and phones can't do this.</li>
+        <li>Use a USB-C cable that <strong>carries data</strong>, not just power.</li>
+        <li>Plug in <strong>one Amulet</strong> at a time.</li>
+        <li>If the <a href="config.html">Tone Atelier</a> is connected in another tab, press <strong>Disconnect</strong> there first. Only one page can use the Amulet at a time.</li>
+      </ul>
+      <p>Something not working? See <a href="flash-help.html">problems and fixes</a>.</p>
+    </section>
+
+    <section class="flash-panel" aria-labelledby="update-title">
+      <p class="section-kicker">02 / Update</p>
+      <h2 id="update-title">Update, keeping your melodies</h2>
+      <p>
+        Installs the newest firmware and keeps the Call and Response you saved.
+        When the installer asks about erasing the device, <strong>leave Erase
+        unchecked</strong>.
+      </p>
+      <div class="flash-action">
+        <esp-web-install-button manifest="firmware/manifest-update.json">
+          <button class="button button-primary" slot="activate" type="button">Update my Amulet</button>
+          <span class="install-note" slot="unsupported">
+            This browser can't install firmware. Open this page in Chrome or Edge on a computer.
+          </span>
+          <span class="install-note" slot="not-allowed">
+            Installing needs a secure page. Open this page from its https:// address.
+          </span>
+        </esp-web-install-button>
+      </div>
+    </section>
+
+    <section class="flash-panel fresh" aria-labelledby="fresh-title">
+      <p class="section-kicker">03 / Fresh install</p>
+      <h2 id="fresh-title">Start over, erasing everything</h2>
+      <p class="flash-warning">
+        This erases your saved melodies and colors. Use it only for a new board,
+        or if an update didn't fix a problem.
+      </p>
+      <div class="flash-action">
+        <esp-web-install-button manifest="firmware/manifest-fresh.json">
+          <button class="button button-secondary" slot="activate" type="button">Erase and install</button>
+          <span class="install-note" slot="unsupported">
+            This browser can't install firmware. Open this page in Chrome or Edge on a computer.
+          </span>
+          <span class="install-note" slot="not-allowed">
+            Installing needs a secure page. Open this page from its https:// address.
+          </span>
+        </esp-web-install-button>
+      </div>
+    </section>
+
+    <section class="flash-panel" aria-labelledby="after-title">
+      <p class="section-kicker">04 / Afterwards</p>
+      <h2 id="after-title">Back to making sounds</h2>
+      <p>
+        Installing takes about a minute; keep the Amulet plugged in until it
+        finishes. It restarts on its own. Then open the
+        <a href="config.html">Tone Atelier</a> and connect again.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="config.html">Amulet Tone Atelier</a>
+    <a href="flash-help.html">Problems and fixes</a>
+  </footer>
+</body>
+</html>

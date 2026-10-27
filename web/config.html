@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ddd3d2">
+  <title>Birdsong Amulet</title>
+  <link rel="preload" href="fonts/chakra-petch-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/chakra-petch-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="masthead-link" href="index.html">
+      <img class="masthead-art" src="birdsong-mozfest-2026.png" width="960" height="540"
+        alt="Birdsong home">
+    </a>
+    <div class="title-row">
+      <div>
+        <h1>Tune your Amulet</h1>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="connection-panel" aria-labelledby="connection-title">
+      <div class="section-number">01</div>
+      <div class="connection-copy">
+        <p class="section-kicker">USB</p>
+        <h2 id="connection-title">Connect</h2>
+        <p>Plug in your Amulet, then press Connect.</p>
+        <p class="firmware-link"><a href="flash.html">Update firmware</a></p>
+      </div>
+      <div class="connection-actions">
+        <button class="button button-primary" id="connectButton" type="button">
+          Connect Amulet
+        </button>
+        <div class="connection-state" id="connectionState" data-state="idle">
+          <span class="state-light" aria-hidden="true"></span>
+          <span id="connectionLabel">Waiting for USB</span>
+        </div>
+      </div>
+      <p class="connection-feedback" id="connectionFeedback" aria-live="polite">
+        Not connected.
+      </p>
+      <p class="browser-note" id="browserNote">
+        Needs desktop Chrome or Edge.
+      </p>
+    </section>
+
+    <div class="editors">
+      <section class="atelier" data-editor="call" aria-labelledby="call-title">
+        <div class="atelier-heading">
+          <div class="section-number">02</div>
+          <p class="section-kicker">Call</p>
+          <h2 id="call-title">Call song</h2>
+          <p class="atelier-description">Plays when you press the button.</p>
+        </div>
+
+        <div class="timing-panel" aria-label="Call timing">
+          <label class="timing-control" for="callNoteDuration">
+            <span class="timing-name">Note length</span>
+            <input id="callNoteDuration" data-role="note-duration" type="range" min="100" max="1000" step="10" value="330">
+            <output data-role="note-duration-value" for="callNoteDuration">0.33 s</output>
+          </label>
+          <label class="timing-control" for="callStartDelay">
+            <span class="timing-name">Delay</span>
+            <input id="callStartDelay" data-role="start-delay" type="range" min="0" max="1000" step="10" value="0">
+            <output data-role="start-delay-value" for="callStartDelay">0 s</output>
+          </label>
+        </div>
+
+        <div class="scale-bar">
+          <label class="scale-field">
+            <span>Scale</span>
+            <select data-role="scale-root" aria-label="Scale root note"></select>
+          </label>
+          <select data-role="scale-type" aria-label="Scale type"></select>
+          <div class="octave-shift" role="group" aria-label="Move the whole melody by an octave">
+            <span>Octave</span>
+            <button class="icon-button" data-role="octave-down" type="button" aria-label="Move the whole melody down an octave">&#9660;</button>
+            <button class="icon-button" data-role="octave-up" type="button" aria-label="Move the whole melody up an octave">&#9650;</button>
+          </div>
+          <label class="audition-toggle">
+            <input data-role="audition" type="checkbox" checked>
+            Hear notes
+          </label>
+        </div>
+
+        <div class="steps" data-role="steps" role="list" aria-label="Call melody">
+          <div class="add-step-cell" data-role="add-step-cell" role="listitem">
+            <button class="add-step-button" data-role="add-step" type="button">
+              <span class="add-step-plus" aria-hidden="true">+</span>
+              Add a note
+            </button>
+          </div>
+        </div>
+
+        <div class="compose-tools">
+          <div class="paint-all">
+            <label for="callPaintAllColor">One color for all</label>
+            <input id="callPaintAllColor" data-role="paint-all-color" type="color" value="#00aa80">
+            <button class="text-button" data-role="paint-all" type="button">Apply</button>
+          </div>
+          <p class="duration" data-role="duration">4 notes / 1.32 s total</p>
+        </div>
+
+        <div class="action-bar">
+          <div class="action-buttons">
+            <button class="button button-secondary" data-role="browser-preview" type="button">
+              Play in browser
+            </button>
+            <button class="button button-secondary device-action" data-role="preview" type="button" disabled>
+              Preview
+            </button>
+            <button class="button button-primary device-action" data-role="save" type="button" disabled>
+              Save call
+            </button>
+            <button class="text-button device-action" data-role="load" type="button" disabled>
+              Load saved
+            </button>
+            <button class="text-button device-action" data-role="reset" type="button" disabled>
+              Restore default
+            </button>
+          </div>
+        </div>
+
+        <div class="feedback" data-role="feedback" data-kind="quiet" aria-live="polite"></div>
+      </section>
+
+      <section class="atelier" data-editor="response" aria-labelledby="response-title">
+        <div class="atelier-heading">
+          <div class="section-number">03</div>
+          <p class="section-kicker">Answer</p>
+          <h2 id="response-title">Response song</h2>
+          <p class="atelier-description">Plays when another Amulet calls.</p>
+        </div>
+
+        <div class="timing-panel" aria-label="Answer timing">
+          <label class="timing-control" for="responseNoteDuration">
+            <span class="timing-name">Note length</span>
+            <input id="responseNoteDuration" data-role="note-duration" type="range" min="100" max="1000" step="10" value="330">
+            <output data-role="note-duration-value" for="responseNoteDuration">0.33 s</output>
+          </label>
+          <label class="timing-control" for="responseStartDelay">
+            <span class="timing-name">Delay</span>
+            <input id="responseStartDelay" data-role="start-delay" type="range" min="0" max="1000" step="10" value="0">
+            <output data-role="start-delay-value" for="responseStartDelay">0 s</output>
+          </label>
+        </div>
+
+        <div class="scale-bar">
+          <label class="scale-field">
+            <span>Scale</span>
+            <select data-role="scale-root" aria-label="Scale root note"></select>
+          </label>
+          <select data-role="scale-type" aria-label="Scale type"></select>
+          <div class="octave-shift" role="group" aria-label="Move the whole melody by an octave">
+            <span>Octave</span>
+            <button class="icon-button" data-role="octave-down" type="button" aria-label="Move the whole melody down an octave">&#9660;</button>
+            <button class="icon-button" data-role="octave-up" type="button" aria-label="Move the whole melody up an octave">&#9650;</button>
+          </div>
+          <label class="audition-toggle">
+            <input data-role="audition" type="checkbox" checked>
+            Hear notes
+          </label>
+        </div>
+
+        <div class="steps" data-role="steps" role="list" aria-label="Answer melody">
+          <div class="add-step-cell" data-role="add-step-cell" role="listitem">
+            <button class="add-step-button" data-role="add-step" type="button">
+              <span class="add-step-plus" aria-hidden="true">+</span>
+              Add a note
+            </button>
+          </div>
+        </div>
+
+        <div class="compose-tools">
+          <div class="paint-all">
+            <label for="responsePaintAllColor">One color for all</label>
+            <input id="responsePaintAllColor" data-role="paint-all-color" type="color" value="#00aa80">
+            <button class="text-button" data-role="paint-all" type="button">Apply</button>
+          </div>
+          <p class="duration" data-role="duration">4 notes / 1.32 s total</p>
+        </div>
+
+        <div class="action-bar">
+          <div class="action-buttons">
+            <button class="button button-secondary" data-role="browser-preview" type="button">
+              Play in browser
+            </button>
+            <button class="button button-secondary device-action" data-role="preview" type="button" disabled>
+              Preview
+            </button>
+            <button class="button button-primary device-action" data-role="save" type="button" disabled>
+              Save answer
+            </button>
+            <button class="text-button device-action" data-role="load" type="button" disabled>
+              Load saved
+            </button>
+            <button class="text-button device-action" data-role="reset" type="button" disabled>
+              Restore default
+            </button>
+          </div>
+        </div>
+
+        <div class="feedback" data-role="feedback" data-kind="quiet" aria-live="polite"></div>
+      </section>
+    </div>
+
+    <aside class="privacy-note" aria-labelledby="privacy-title">
+      <p class="section-kicker">Privacy</p>
+      <h2 id="privacy-title">Stays on your Amulet</h2>
+      <p>Your call and answer are never broadcast.</p>
+    </aside>
+  </main>
+
+  <footer>
+    <span>Birdsong · MozFest 2026</span>
+    <a href="flash.html">Update firmware</a>
+    <span>Protocol v2</span>
+  </footer>
+
+  <template id="stepTemplate">
+    <article class="tone-card" role="listitem">
+      <span class="step-number"></span>
+      <button class="icon-button nudge-button nudge-up" type="button">&#9650;</button>
+      <div class="pitch-track">
+        <span class="pitch-rail" aria-hidden="true"></span>
+        <span class="pitch-fill" aria-hidden="true"></span>
+        <span class="pitch-knob" aria-hidden="true"></span>
+        <input class="pitch-slider" type="range" orient="vertical" min="0" step="1">
+      </div>
+      <button class="icon-button nudge-button nudge-down" type="button">&#9660;</button>
+      <label class="note-field">
+        <span class="sr-only">Note</span>
+        <select class="note-select"></select>
+      </label>
+      <div class="frequency"></div>
+      <button class="rest-toggle" type="button" aria-pressed="false">Rest</button>
+      <label class="color-field">
+        <span class="sr-only">Light</span>
+        <input class="color-input" type="color">
+        <span class="color-value sr-only"></span>
+      </label>
+      <div class="reorder-buttons" role="group" aria-label="Reorder note">
+        <button class="icon-button move-up" type="button" aria-label="Move note earlier">&larr;</button>
+        <button class="icon-button move-down" type="button" aria-label="Move note later">&rarr;</button>
+      </div>
+      <button class="remove-button" type="button">Remove</button>
+    </article>
+  </template>
+</body>
+</html>

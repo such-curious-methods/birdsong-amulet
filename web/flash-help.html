@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ddd3d2">
+  <title>Firmware Help</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="flash.css">
+</head>
+<body class="flash-page">
+
+  <header class="masthead">
+    <p class="eyebrow">Amulet workshop instrument</p>
+    <h1>Problems and fixes.</h1>
+    <p class="lede">
+      Most install problems come down to the browser, the cable or a driver.
+      Find what you're seeing below. If nothing helps, ask a workshop helper.
+    </p>
+  </header>
+
+  <main>
+    <section class="flash-panel" aria-labelledby="browser-title">
+      <p class="section-kicker">Browser</p>
+      <h2 id="browser-title">Before anything else</h2>
+
+      <article class="gotcha" id="unsupported-browser">
+        <h3>The page says this browser can't install firmware</h3>
+        <dl>
+          <dt>Why</dt>
+          <dd>Installing uses Web Serial, a browser feature for talking to USB devices. Chrome and Edge on computers have it. Safari and every browser on iPhone and iPad don't.</dd>
+          <dt>Fix</dt>
+          <dd>Open this page in Chrome or Edge on a Mac, Windows or Linux computer, or a Chromebook. Recent Firefox versions have added Web Serial, but this installer hasn't been tested there.</dd>
+        </dl>
+      </article>
+
+      <article class="gotcha" id="not-secure">
+        <h3>The page says it needs a secure page</h3>
+        <dl>
+          <dt>Why</dt>
+          <dd>Browsers only allow USB access from <code>https://</code> pages (or from <code>localhost</code> on your own computer).</dd>
+          <dt>Fix</dt>
+          <dd>Open the page from its <code>https://</code> address, not a saved copy or a plain <code>http://</code> link.</dd>
+        </dl>
+      </article>
+    </section>
+
+    <section class="flash-panel" aria-labelledby="port-title">
+      <p class="section-kicker">Finding the Amulet</p>
+      <h2 id="port-title">No port, or the wrong port</h2>
+
+      <article class="gotcha" id="no-port">
+        <h3>The port list is empty, or the Amulet never shows up</h3>
+        <dl>
+          <dt>Why</dt>
+          <dd>The most common cause by far is a charge-only USB cable: it powers the Amulet but carries no data. The next most common is a missing or broken driver for the Amulet's USB chip (a CH340).</dd>
+          <dt>Fix</dt>
+          <dd>Try a different cable that you know syncs data, and a different USB port. If it still doesn't appear, check the driver section for your computer below.</dd>
+        </dl>
+      </article>
+
+      <article class="gotcha" id="several-boards">
+        <h3>Several identical entries appear in the list</h3>
+        <dl>
+          <dt>Why</dt>
+          <dd>The Amulet's USB chip has no serial number, so several Amulets look the same to the browser.</dd>
+          <dt>Fix</dt>
+          <dd>Plug in one Amulet at a time.</dd>
+        </dl>
+      </article>
+
+      <article class="gotcha" id="port-busy">
+        <h3>"Failed to open serial port" or the port is busy</h3>
+        <dl>
+          <dt>Why</dt>
+          <dd>Only one program can use the Amulet at a time. The Tone Atelier in another tab, a serial monitor, or tools like the Arduino IDE may be holding it.</dd>
+          <dt>Fix</dt>
+          <dd>Press Disconnect in the Tone Atelier, close other tabs or programs that might use the port, then try again. Unplugging and replugging the Amulet also releases it.</dd>
+        </dl>
+      </article>
+    </section>
+
+    <section class="flash-panel" aria-labelledby="driver-title">
+      <p class="section-kicker">Drivers</p>
+      <h2 id="driver-title">Your computer and the CH340 chip</h2>
+
+      <article class="gotcha" id="windows">
+        <h3>Windows</h3>
+        <dl>
+          <dt>Why</dt>
+          <dd>Windows normally installs the CH340 driver automatically through Windows Update. Some automatic updates have installed a version that doesn't work.</dd>
+          <dt>Fix</dt>
+          <dd>Wait a minute after plugging in the first time while Windows finds the driver. If the port appears but installing fails, ask a helper for the CH340 driver installer from the chip maker, WCH, or roll the driver back in Device Manager.</dd>
+        </dl>
+      </article>
+
+      <article class="gotcha" id="macos">
+        <h3>macOS</h3>
+        <dl>
+          <dt>Why</dt>
+          <dd>Recent versions of macOS include a CH340 driver. An older driver installed by hand for other projects can conflict with it and create duplicate or dead ports.</dd>
+          <dt>Fix</dt>
+          <dd>If you see two similar ports, try each. If neither works and you once installed a CH340 or CH341 driver yourself, removing it usually helps. Ask a helper.</dd>
+        </dl>
+      </article>
+
+      <article class="gotcha" id="linux">
+        <h3>Linux</h3>
+        <dl>
+          <dt>Why</dt>
+          <dd>The driver is built in, but your user needs permission to use serial ports. On Ubuntu and Linux Mint, a braille-display service called BRLTTY can also grab the Amulet and make it vanish a moment after you plug it in.</dd>
+          <dt>Fix</dt>
+          <dd>Add yourself to the serial group with <code>sudo usermod -aG dialout $USER</code>, then log out and back in. On Ubuntu or Mint, if you don't use a braille display, remove BRLTTY with <code>sudo apt remove brltty</code>.</dd>
+        </dl>
+      </article>
+    </section>
+
+    <section class="flash-panel" aria-labelledby="install-title">
+      <p class="section-kicker">Installing</p>
+      <h2 id="install-title">During and after the install</h2>
+
+      <article class="gotcha" id="erase">
+        <h3>The installer asks whether to erase the device</h3>
+        <dl>
+          <dt>Why</dt>
+          <dd>Erasing wipes everything on the Amulet, including the melodies and colors you saved.</dd>
+          <dt>Fix</dt>
+          <dd>For a normal update, leave Erase unchecked. Use "Erase and install" only for a new board or when an update didn't fix a problem.</dd>
+        </dl>
+      </article>
+
+      <article class="gotcha" id="no-connect">
+        <h3>"Failed to connect" or the install never starts</h3>
+        <dl>
+          <dt>Why</dt>
+          <dd>The installer restarts the Amulet into a special loading mode through the USB chip. Occasionally the timing misses on some computers.</dd>
+          <dt>Fix</dt>
+          <dd>Unplug the Amulet, plug it back in and try again. If it keeps failing, ask a helper, who can put the board into loading mode by hand.</dd>
+        </dl>
+      </article>
+
+      <article class="gotcha" id="slow">
+        <h3>It seems slow, or it stopped partway</h3>
+        <dl>
+          <dt>Why</dt>
+          <dd>Installing takes about a minute. If the cable is bumped or the computer sleeps, it stops partway.</dd>
+          <dt>Fix</dt>
+          <dd>Keep the Amulet plugged in and the computer awake until it finishes. If it stopped partway, just run the install again; the Amulet recovers.</dd>
+        </dl>
+      </article>
+
+      <article class="gotcha" id="melodies-gone">
+        <h3>My melodies are gone after installing</h3>
+        <dl>
+          <dt>Why</dt>
+          <dd>The board was erased: "Erase and install" was used, or the Erase box was checked during an update.</dd>
+          <dt>Fix</dt>
+          <dd>Compose them again in the Tone Atelier and press Save. Next time, use "Update my Amulet" and leave Erase unchecked.</dd>
+        </dl>
+      </article>
+
+      <article class="gotcha" id="too-old">
+        <h3>The Tone Atelier says the firmware is too old</h3>
+        <dl>
+          <dt>Why</dt>
+          <dd>Newer features, such as rests in a melody, need the current firmware.</dd>
+          <dt>Fix</dt>
+          <dd>Disconnect in the Tone Atelier, then come back here and use "Update my Amulet".</dd>
+        </dl>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <a href="flash.html">Install or update</a>
+    <a href="config.html">Amulet Tone Atelier</a>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ddd3d2">
+  <title>Birdsong Amulet</title>
+  <link rel="preload" href="fonts/chakra-petch-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/chakra-petch-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="landing-page">
+  <header class="masthead">
+    <img class="masthead-art" src="birdsong-mozfest-2026.png" width="960" height="540"
+      alt="Birdsong. MozFest 2026, Barcelona.">
+    <h1>Birdsong Amulet</h1>
+    <p class="lede">One line about the project.</p>
+  </header>
+
+  <main>
+    <nav class="link-list" aria-label="Project links">
+      <!-- TODO: drop the PDF into web/ with this name, or change the href. -->
+      <a class="link-card" href="birdsong-mozfest-2026-slides.pdf">
+        <span class="section-kicker">Slides</span>
+        <span class="link-title">The talk</span>
+        <span class="link-note">PDF</span>
+      </a>
+      <a class="link-card" href="config.html">
+        <span class="section-kicker">Configure</span>
+        <span class="link-title">Tune your Amulet</span>
+        <span class="link-note">Needs desktop Chrome or Edge</span>
+      </a>
+      <a class="link-card" href="https://github.com/such-curious-methods/birdsong-amulet">
+        <span class="section-kicker">Code</span>
+        <span class="link-title">Source on GitHub</span>
+        <span class="link-note">Firmware, web tools, hardware</span>
+      </a>
+    </nav>
+
+    <section class="resources" aria-labelledby="resources-title">
+      <p class="section-kicker">Go further</p>
+      <h2 id="resources-title">Resources</h2>
+      <!-- TODO: fill in titles, links and one-line notes. -->
+      <ul class="resource-list">
+        <li><a href="#">Getting started with the ESP32</a> <span>A one-line note.</span></li>
+        <li><a href="#">Bluetooth Low Energy basics</a> <span>A one-line note.</span></li>
+        <li><a href="#">Tracker and surveillance detection</a> <span>A one-line note.</span></li>
+        <li><a href="#">Ideas for extending the Amulet</a> <span>A one-line note.</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <span>Birdsong · MozFest 2026</span>
+    <a href="flash.html">Update firmware</a>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "Birdsong Amulet",
+  "version": "2026.10.27-7294b1a",
+  "new_install_prompt_erase": true,
+  "new_install_improv_wait_time": 0,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "bootloader-2026.10.27-7294b1a.bin", "offset": 4096 },
+        { "path": "partition-table-2026.10.27-7294b1a.bin", "offset": 32768 },
+        { "path": "amulet-2026.10.27-7294b1a.bin", "offset": 65536 }
+      ]
+    }
+  ]
+}
