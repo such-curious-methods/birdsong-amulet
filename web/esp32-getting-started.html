@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ddd3d2">
+  <title>Getting started with ESP32 · Birdsong Amulet</title>
+  <link rel="preload" href="fonts/chakra-petch-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/chakra-petch-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="doc-page">
+  <header class="masthead">
+    <a class="masthead-link" href="index.html">
+      <img class="masthead-art" src="birdsong-mozfest-2026.png" width="960" height="540"
+        alt="Birdsong home">
+    </a>
+    <a class="back-link" href="index.html">&larr; Birdsong Amulet</a>
+    <h1>Getting started with ESP32</h1>
+    <p class="lede">Build your own projects, without C++ or the terminal.</p>
+  </header>
+
+  <main>
+    <section class="prose" aria-labelledby="board">
+      <h2 id="board">Your board</h2>
+      <p>
+        The Amulet is built on a <strong>DFRobot FireBeetle 2 ESP32-E</strong>:
+        an ESP32 with Wi-Fi, Bluetooth, a USB-C port, a battery charger and an
+        RGB LED. Its firmware is written in C with Espressif's ESP-IDF, but you
+        do not need either to start your own projects.
+      </p>
+      <div class="callout warning">
+        <strong>Trying these replaces the Amulet firmware.</strong> To turn your
+        board back into an Amulet, use <a href="flash.html">Install or update
+        firmware</a> and choose <em>Fresh install</em>.
+      </div>
+    </section>
+
+    <section class="prose" aria-labelledby="options">
+      <h2 id="options">Gentle ways in</h2>
+      <h3>MicroPython in Thonny</h3>
+      <p>
+        <a href="https://thonny.org/">Thonny</a> is a beginner-friendly Python
+        editor that can install <a href="https://micropython.org/download/ESP32_GENERIC/">MicroPython</a>
+        on the board for you. You write Python, press Run, and see the results
+        right away. Bluetooth scanning is built in; try the
+        <a href="scanning.html">scanning script</a>.
+      </p>
+      <h3>MicroBlocks</h3>
+      <p>
+        <a href="https://microblocks.fun/">MicroBlocks</a> is drag-and-drop
+        blocks, like Scratch, for real hardware. It runs in Chrome or Edge with
+        nothing to install.
+      </p>
+      <h3>Wokwi</h3>
+      <p>
+        <a href="https://wokwi.com/">Wokwi</a> simulates an ESP32 in your
+        browser, with virtual LEDs, buttons and sensors, so you can start
+        before you have a board.
+      </p>
+      <h3>Arduino IDE</h3>
+      <p>
+        Still C++, but with buttons instead of a terminal and examples for
+        almost everything. <span class="placeholder">Link to be added.</span>
+      </p>
+    </section>
+
+    <section class="prose" aria-labelledby="ideas">
+      <h2 id="ideas">Ideas</h2>
+      <p class="placeholder">Project ideas to be added.</p>
+    </section>
+  </main>
+
+  <footer>
+    <nav class="topic-nav" aria-label="Topics">
+      <a href="bluetooth-basics.html">Bluetooth basics</a>
+      <a href="scanning.html">Scanning for signatures</a>
+      <a href="wiring.html">Wiring guide</a>
+      <a href="bom.html">Bill of materials</a>
+      <a href="esp32-getting-started.html" aria-current="page">Getting started with ESP32</a>
+    </nav>
+    <span>Birdsong · MozFest 2026</span>
+  </footer>
+</body>
+</html>

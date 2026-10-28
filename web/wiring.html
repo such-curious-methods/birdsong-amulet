@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ddd3d2">
+  <title>Wiring guide · Birdsong Amulet</title>
+  <link rel="preload" href="fonts/chakra-petch-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/chakra-petch-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="doc-page">
+  <header class="masthead">
+    <a class="masthead-link" href="index.html">
+      <img class="masthead-art" src="birdsong-mozfest-2026.png" width="960" height="540"
+        alt="Birdsong home">
+    </a>
+    <a class="back-link" href="index.html">&larr; Birdsong Amulet</a>
+    <h1>Wiring guide</h1>
+    <p class="lede">Put together the Amulet from the component kit.</p>
+  </header>
+
+  <main>
+    <section class="prose" aria-labelledby="kit">
+      <h2 id="kit">What is in the kit</h2>
+      <p class="placeholder">Kit contents to be added.</p>
+      <p>
+        See the <a href="bom.html">bill of materials</a> for every part, with
+        part numbers. You will also need a soldering iron, solder, flush
+        cutters and, ideally, a multimeter.
+      </p>
+    </section>
+
+    <section class="prose" aria-labelledby="board">
+      <h2 id="board">The carrier board</h2>
+      <p>Solder the low parts first (resistors, then the diode), then the transistor, buzzer and headers.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ref</th><th>Part</th><th>Which way round</th></tr></thead>
+          <tbody>
+            <tr><td>R1</td><td>100 ohm resistor</td><td>Either way</td></tr>
+            <tr><td>R2</td><td>1 kohm resistor</td><td>Either way</td></tr>
+            <tr><td>R3</td><td>10 kohm resistor</td><td>Either way</td></tr>
+            <tr><td>D1</td><td>1N4148 diode</td><td>Band (cathode) on the buzzer's + side</td></tr>
+            <tr><td>Q1</td><td>PN2222A transistor</td><td>Flat face as marked on the board</td></tr>
+            <tr><td>BZ1</td><td>Magnetic buzzer</td><td>+ toward R1</td></tr>
+            <tr><td>J1</td><td>FireBeetle sockets (1x18, 1x14)</td><td>Inner rows</td></tr>
+            <tr><td>J2</td><td>Right-angle 1x4 header</td><td>Pins pointing off the board edge</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="placeholder">Photo of a finished board to be added.</p>
+    </section>
+
+    <section class="prose" aria-labelledby="harness">
+      <h2 id="harness">The panel harness</h2>
+      <p>
+        Four wires connect the board to the three panel controls. Every
+        control shares the ground wire on pin 1.
+      </p>
+      <figure class="diagram">
+        <svg viewBox="0 0 660 390" role="img" aria-labelledby="harness-title harness-desc">
+          <title id="harness-title">J2 panel harness wiring</title>
+          <desc id="harness-desc">J2 pin 1, ground, connects to the shared terminal of all three controls. Pin 2, CALL, goes to the call button. Pin 3, EN, goes to the power slider. Pin 4, Q_BASE, goes to the silent slider. Each slider's third terminal stays unconnected.</desc>
+
+          <text class="label-strong" x="30" y="40">J2 on the carrier board</text>
+          <rect class="part" x="30" y="52" width="150" height="290" rx="6"/>
+          <rect class="pin" x="172" y="72" width="16" height="16"/>
+          <circle class="pin" cx="180" cy="150" r="8"/>
+          <circle class="pin" cx="180" cy="230" r="8"/>
+          <circle class="pin" cx="180" cy="310" r="8"/>
+          <text x="44" y="85"><tspan class="label-strong">1</tspan>  GND</text>
+          <text x="44" y="155"><tspan class="label-strong">2</tspan>  CALL</text>
+          <text x="44" y="235"><tspan class="label-strong">3</tspan>  EN</text>
+          <text x="44" y="315"><tspan class="label-strong">4</tspan>  Q_BASE</text>
+          <text class="label-note" x="44" y="103">square pad</text>
+
+          <path class="wire-ground" d="M188 80 H610 V310 H540"/>
+          <path class="wire-ground" d="M610 150 H540 M610 230 H540"/>
+          <circle class="pin" cx="610" cy="150" r="4.5"/>
+          <circle class="pin" cx="610" cy="230" r="4.5"/>
+          <text class="label-note" x="380" y="70">ground, shared by all three</text>
+
+          <path class="wire-signal" d="M188 150 H360 M188 230 H360 M188 310 H360"/>
+
+          <rect class="part" x="360" y="128" width="180" height="44" rx="6"/>
+          <text class="label-strong" x="372" y="146">Call button</text>
+          <text class="label-note" x="372" y="162">pressed = call</text>
+
+          <rect class="part" x="360" y="208" width="180" height="44" rx="6"/>
+          <text class="label-strong" x="372" y="226">Power slider</text>
+          <text class="label-note" x="372" y="242">closed = off</text>
+          <circle class="pin" cx="450" cy="252" r="3.5"/>
+          <path class="unused" d="M450 252 V266 M444 260 L456 272 M456 260 L444 272"/>
+          <text class="label-note" x="464" y="272">unused: insulate</text>
+
+          <rect class="part" x="360" y="288" width="180" height="44" rx="6"/>
+          <text class="label-strong" x="372" y="306">Silent slider</text>
+          <text class="label-note" x="372" y="322">closed = mute</text>
+          <circle class="pin" cx="450" cy="332" r="3.5"/>
+          <path class="unused" d="M450 332 V346 M444 340 L456 352 M456 340 L444 352"/>
+          <text class="label-note" x="464" y="352">unused: insulate</text>
+
+          <text class="label-note" x="528" y="155" text-anchor="end">COM</text>
+          <circle class="pin" cx="360" cy="150" r="3.5"/>
+          <circle class="pin" cx="540" cy="150" r="3.5"/>
+          <text class="label-note" x="528" y="235" text-anchor="end">COM</text>
+          <circle class="pin" cx="360" cy="230" r="3.5"/>
+          <circle class="pin" cx="540" cy="230" r="3.5"/>
+          <text class="label-note" x="528" y="315" text-anchor="end">COM</text>
+          <circle class="pin" cx="360" cy="310" r="3.5"/>
+          <circle class="pin" cx="540" cy="310" r="3.5"/>
+
+          <path class="wire-signal" d="M30 378 H60"/>
+          <text class="label-note" x="68" y="382">signal</text>
+          <path class="wire-ground" d="M130 378 H160"/>
+          <text class="label-note" x="168" y="382">ground</text>
+        </svg>
+      </figure>
+      <ul>
+        <li><strong>Mark pin 1 on both halves</strong> of the connector. Dupont housings are not keyed. A reversed plug cannot short the battery, but the controls will misbehave.</li>
+        <li>The sliders have three terminals. Wire the common one (COM, usually the middle; check with a multimeter) to ground and one outer terminal to its signal. Cover the unused terminal with heat-shrink.</li>
+        <li><strong>Never</strong> connect the unused Power terminal to 3V3 or to the battery's +.</li>
+        <li>Check which slider position closes the contact with a multimeter, then label the panel.</li>
+      </ul>
+    </section>
+
+    <section class="prose" aria-labelledby="battery">
+      <h2 id="battery">The battery</h2>
+      <div class="callout warning">
+        <strong>Check polarity before plugging in.</strong> Measure the battery's
+        connector with a multimeter: red must match the <code>+</code> marking
+        next to the FireBeetle's battery socket. A reversed battery can destroy
+        the board's charger.
+      </div>
+      <p>Use a protected 1S LiPo battery with a JST connector.</p>
+    </section>
+
+    <section class="prose" aria-labelledby="extend">
+      <h2 id="extend">Room to grow</h2>
+      <p>
+        The two outer rows of holes on the carrier carry the same FireBeetle
+        pins as the socket, so you can plug in your own sensors and parts. See
+        <a href="esp32-getting-started.html">getting started with ESP32</a>.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <nav class="topic-nav" aria-label="Topics">
+      <a href="bluetooth-basics.html">Bluetooth basics</a>
+      <a href="scanning.html">Scanning for signatures</a>
+      <a href="wiring.html" aria-current="page">Wiring guide</a>
+      <a href="bom.html">Bill of materials</a>
+      <a href="esp32-getting-started.html">Getting started with ESP32</a>
+    </nav>
+    <span>Birdsong · MozFest 2026</span>
+  </footer>
+</body>
+</html>

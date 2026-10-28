@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ddd3d2">
+  <title>Scanning for signatures · Birdsong Amulet</title>
+  <link rel="preload" href="fonts/chakra-petch-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/chakra-petch-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="doc-page">
+  <header class="masthead">
+    <a class="masthead-link" href="index.html">
+      <img class="masthead-art" src="birdsong-mozfest-2026.png" width="960" height="540"
+        alt="Birdsong home">
+    </a>
+    <a class="back-link" href="index.html">&larr; Birdsong Amulet</a>
+    <h1>Scanning for signatures</h1>
+    <p class="lede">Capture Bluetooth advertisements and help the Amulet recognize new devices.</p>
+  </header>
+
+  <main>
+    <section class="prose" aria-labelledby="ground-rules">
+      <h2 id="ground-rules">Ground rules</h2>
+      <ul>
+        <li><strong>Capture only devices you own</strong>, or ones whose owner said yes. Scans of shops and streets are good for ideas but do not count as evidence.</li>
+        <li>A signature matches a <strong>kind</strong> of device, never one particular device.</li>
+        <li>Leave Bluetooth addresses and device names out of what you share.</li>
+      </ul>
+    </section>
+
+    <section class="prose" aria-labelledby="phone">
+      <h2 id="phone">The quick way: a phone app</h2>
+      <p>
+        <a href="https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-mobile">nRF Connect for Mobile</a>
+        (Android and iOS) lists nearby devices and shows each advertisement's
+        raw bytes. Android shows the most detail.
+      </p>
+    </section>
+
+    <section class="prose" aria-labelledby="esp32">
+      <h2 id="esp32">With an ESP32: the scanning script</h2>
+      <p>
+        <a href="https://github.com/such-curious-methods/birdsong-amulet/blob/main/scripts/micropython/ble_scan.py"><code>ble_scan.py</code></a>
+        is a small MicroPython script that prints every kind of advertisement
+        an ESP32 hears, with its raw bytes and the decoded fields. Like the
+        Amulet, it only listens. It hides addresses and names: each device gets
+        a short label like <code>dev-88babc</code> that changes every run.
+      </p>
+      <div class="callout warning">
+        <strong>This replaces the Amulet firmware.</strong> Use a spare ESP32 if
+        you have one. To turn it back into an Amulet afterwards, use
+        <a href="flash.html">Install or update firmware</a> and choose
+        <em>Fresh install</em>. Your saved call and answer will be reset.
+      </div>
+      <ol>
+        <li>Install <a href="https://thonny.org/">Thonny</a>, a beginner-friendly Python editor.</li>
+        <li>Plug in the ESP32. In Thonny's interpreter settings, choose MicroPython (ESP32) and let Thonny install MicroPython on the board.</li>
+        <li>Download <code>ble_scan.py</code>, open it in Thonny, and press <strong>Run</strong>.</li>
+      </ol>
+      <p>The output looks like this:</p>
+<pre>Scanning for 60 s; press Ctrl-C to stop.
+dev-88babc  -60 dBm  random address  connectable
+  raw  02 01 06 08 09 xx xx xx xx xx xx xx 02 0a f4 04 16 5a fd 13
+  flags 0x06
+  name (hidden, 7 bytes)
+  tx power -12 dBm
+  service data 0xFD5A (Samsung SmartTag): 13</pre>
+      <h3>Capturing your own device</h3>
+      <p>Change the settings at the top of the script:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>MIN_RSSI = -50</code></td><td>Ignore weak signals. Hold your device right next to the board to capture only it.</td></tr>
+            <tr><td><code>ONLY_COMPANY_ID = 0x004C</code></td><td>Show one maker only; this example is Apple.</td></tr>
+            <tr><td><code>DURATION_S = 0</code></td><td>Scan until you press Ctrl-C.</td></tr>
+            <tr><td><code>SHOW_NAMES = True</code></td><td>Show device names. Only for your own devices.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        On a Linux laptop, <code>bluetoothctl</code> (type <code>scan on</code>)
+        gives a quick view, and <code>btmon</code> shows raw bytes.
+      </p>
+    </section>
+
+    <section class="prose" aria-labelledby="contribute">
+      <h2 id="contribute">What to send</h2>
+      <ul>
+        <li>The device: make, model, and firmware version if you know it.</li>
+        <li>Its state in each capture: near its owner's phone or away, paired or not.</li>
+        <li>Several captures of the raw bytes in each state.</li>
+        <li><strong>Near misses:</strong> similar devices that should <em>not</em> match, such as an iPhone next to an AirTag.</li>
+        <li>Where the format is documented, if anywhere: a spec, an app's source code, a paper.</li>
+      </ul>
+      <p>
+        Send it through the
+        <a href="https://github.com/such-curious-methods/birdsong-amulet">GitHub repository</a>.
+        <span class="placeholder">How to submit (issue or pull request) to be added.</span>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <nav class="topic-nav" aria-label="Topics">
+      <a href="bluetooth-basics.html">Bluetooth basics</a>
+      <a href="scanning.html" aria-current="page">Scanning for signatures</a>
+      <a href="wiring.html">Wiring guide</a>
+      <a href="bom.html">Bill of materials</a>
+      <a href="esp32-getting-started.html">Getting started with ESP32</a>
+    </nav>
+    <span>Birdsong · MozFest 2026</span>
+  </footer>
+</body>
+</html>

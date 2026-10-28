@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ddd3d2">
+  <title>Bluetooth basics · Birdsong Amulet</title>
+  <link rel="preload" href="fonts/chakra-petch-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/chakra-petch-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="doc-page">
+  <header class="masthead">
+    <a class="masthead-link" href="index.html">
+      <img class="masthead-art" src="birdsong-mozfest-2026.png" width="960" height="540"
+        alt="Birdsong home">
+    </a>
+    <a class="back-link" href="index.html">&larr; Birdsong Amulet</a>
+    <h1>Bluetooth basics</h1>
+    <p class="lede">How Bluetooth works, and why it says so much about us.</p>
+  </header>
+
+  <main>
+    <section class="prose" aria-labelledby="vs-wifi">
+      <h2 id="vs-wifi">Bluetooth vs Wi-Fi</h2>
+      <p>
+        Both use the same 2.4 GHz radio band, but they do different jobs.
+        <strong>Wi-Fi</strong> is for networking: a device joins an access point
+        and moves lots of data to and from the internet, using more power.
+        <strong>Bluetooth Low Energy (BLE)</strong> is for short, occasional
+        messages between nearby devices, on very little power.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th></th><th>Wi-Fi</th><th>Bluetooth Low Energy</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Built for</td><td>Internet access, big files, video</td><td>Small messages: sensors, trackers, watches</td></tr>
+            <tr><td>Power</td><td>Higher</td><td>Very low; coin cells can last a year</td></tr>
+            <tr><td>Typical range</td><td>Tens of meters</td><td>Roughly 10 to 50 meters</td></tr>
+            <tr><td>Talking to strangers</td><td>Join a network first</td><td>Broadcasts that anyone nearby can hear</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="prose" aria-labelledby="advertising">
+      <h2 id="advertising">Advertising: the part that matters here</h2>
+      <p>
+        BLE devices announce themselves with <strong>advertisements</strong>:
+        short packets, up to 31 bytes, sent many times a second. Anyone nearby
+        can hear them without pairing or connecting. That is how your phone finds
+        earbuds, how trackers report in, and how the Amulet notices trackers,
+        drones and other Amulets.
+      </p>
+      <p>
+        It is also why Bluetooth leaks so much. Advertisements can carry a
+        maker's ID, a device type, a name like "Maria's Watch", or an address
+        that stays the same for days.
+      </p>
+      <p>
+        <em>Classic</em> Bluetooth, used for streaming audio to headphones, and
+        BLE share a name and often a chip, but they are different protocols.
+      </p>
+    </section>
+
+    <section class="prose" aria-labelledby="learn-more">
+      <h2 id="learn-more">Learn more</h2>
+      <ul>
+        <li><a href="https://academy.nordicsemi.com/courses/bluetooth-low-energy-fundamentals/">Bluetooth Low Energy Fundamentals</a>: a free six-lesson course from Nordic Semiconductor, from basics to sniffing.</li>
+        <li><a href="https://learn.adafruit.com/introduction-to-bluetooth-low-energy">Introduction to Bluetooth Low Energy</a>: a short, friendly overview from Adafruit.</li>
+        <li><span class="placeholder">Another resource to be added.</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <nav class="topic-nav" aria-label="Topics">
+      <a href="bluetooth-basics.html" aria-current="page">Bluetooth basics</a>
+      <a href="scanning.html">Scanning for signatures</a>
+      <a href="wiring.html">Wiring guide</a>
+      <a href="bom.html">Bill of materials</a>
+      <a href="esp32-getting-started.html">Getting started with ESP32</a>
+    </nav>
+    <span>Birdsong · MozFest 2026</span>
+  </footer>
+</body>
+</html>
